@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Switch btnCambiarPantalla;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +36,23 @@ public class MainActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.radiobtnGroup);
         btnCalcular = findViewById(R.id.btnCalcular2);
         resultado = findViewById(R.id.resultado);
+        cargarDatosPantallaSpinner();
 
         //mensaje al usuario
         Toast.makeText(this,"app calculadora Button", Toast.LENGTH_SHORT).show();
+    }
+
+    private void cargarDatosPantallaSpinner() {
+        //almacenar los datos de la pantalla Buton
+        String sn1 = getIntent().getStringExtra("sn1");
+        String sn2 = getIntent().getStringExtra("sn2");
+        String sr = getIntent().getStringExtra("sr");
+        //establecer los datos en la pantalla actual
+        number_a.setText(sn1);
+        number_b.setText(sn2);
+        resultado.setText(sr);
+
+
     }
 
     /**
@@ -107,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
     public void cambiarPantallaSpinner(View view){
         //instanciar para el cambio de pantalla
         Intent pantallaSpinner = new Intent(this, CalculadoraSpinner.class);
+        //compartir los datos de la actual pantalla
+        pantallaSpinner.putExtra("n1", number_a.getText().toString());
+        pantallaSpinner.putExtra("n2", number_b.getText().toString());
+        pantallaSpinner.putExtra("r", resultado.getText().toString());
+        //comenzar activity
         startActivity(pantallaSpinner);
     }
 
